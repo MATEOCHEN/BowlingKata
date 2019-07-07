@@ -30,6 +30,10 @@ namespace BowlingKata
         [Test]
         public void TestAllZeros()
         {
+            for (var i = 0; i < 20; i++)
+            {
+                _game.Roll(0);
+            }
             Assert.AreEqual(0, _game.GetScore());
         }
     }
