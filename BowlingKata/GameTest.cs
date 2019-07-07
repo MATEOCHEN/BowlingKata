@@ -43,11 +43,16 @@ namespace BowlingKata
                 return 20;
             }
 
-            if (_frame > 18)
+            if (IsFinal())
             {
                 return _scoreBox[_frame];
             }
             return _scoreBox[_frame - 1] + _scoreBox[_frame];
+        }
+
+        private bool IsFinal()
+        {
+            return _frame > 18;
         }
 
         private bool IsStrike()
