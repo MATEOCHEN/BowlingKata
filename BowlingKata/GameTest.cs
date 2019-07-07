@@ -15,13 +15,23 @@ namespace BowlingKata
 
             if (IsStrike())
             {
-                _score += _scoreBox[_frame - 1] + pins;
+                _score += StrikeBonus();
             }
             else if (IsSpare())
             {
-                _score += pins;
+                _score += SpareBonus();
             }
             NextFrame(pins);
+        }
+
+        private int SpareBonus()
+        {
+            return _scoreBox[_frame];
+        }
+
+        private int StrikeBonus()
+        {
+            return _scoreBox[_frame - 1] + _scoreBox[_frame];
         }
 
         private bool IsStrike()
