@@ -1,3 +1,4 @@
+using System;
 using NUnit.Framework;
 
 namespace BowlingKata
@@ -6,10 +7,15 @@ namespace BowlingKata
     {
         private int _score;
         private int _frame;
-        private readonly int[] _scoreBox = new int[22];
+        private readonly int[] _scoreBox = new int[21];
+        private int count = 1;
 
         public void Roll(int pins)
         {
+            if (count == 12)
+            {
+                _frame += 0;
+            }
             _score += pins;
             _scoreBox[_frame] = pins;
 
@@ -32,12 +38,21 @@ namespace BowlingKata
 
         private int StrikeBonus()
         {
+            if ((_scoreBox[_frame - 1] == 0 || _scoreBox[_frame] == 0) && _frame <= 18)
+            {
+                return 20;
+            }
+
+            if (_frame > 18)
+            {
+                return _scoreBox[_frame];
+            }
             return _scoreBox[_frame - 1] + _scoreBox[_frame];
         }
 
         private bool IsStrike()
         {
-            if (_frame % 2 == 1 && _frame != 1)
+            if (_frame >= 3)
             {
                 return _scoreBox[_frame - 2] == 10 || _scoreBox[_frame - 3] == 10;
             }
@@ -57,7 +72,7 @@ namespace BowlingKata
 
         public void NextFrame(int pins)
         {
-            if (pins == 10 && _frame != 20)
+            if (pins == 10 && _frame < 18)
             {
                 _frame += 2;
             }
@@ -65,6 +80,8 @@ namespace BowlingKata
             {
                 _frame++;
             }
+
+            count++;
         }
 
         public int GetScore()
