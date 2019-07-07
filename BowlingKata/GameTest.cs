@@ -30,21 +30,23 @@ namespace BowlingKata
         [Test]
         public void TestAllZeros()
         {
-            for (var i = 0; i < 20; i++)
-            {
-                _game.Roll(0);
-            }
+            ProcessRolling(20, 0);
             Assert.AreEqual(0, _game.GetScore());
         }
 
         [Test]
         public void TestAllOnes()
         {
-            for (var i = 0; i < 20; i++)
-            {
-                _game.Roll(1);
-            }
+            ProcessRolling(20, 1);
             Assert.AreEqual(20, _game.GetScore());
+        }
+
+        private void ProcessRolling(int rollCount, int pins)
+        {
+            for (var i = 0; i < rollCount; i++)
+            {
+                _game.Roll(pins);
+            }
         }
     }
 }
