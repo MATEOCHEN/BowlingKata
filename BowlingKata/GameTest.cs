@@ -5,10 +5,32 @@ namespace BowlingKata
     internal class Game
     {
         private int _score;
+        private int _frame;
+        private readonly int[] _scoreBox = new int[20];
 
         public void Roll(int pins)
         {
             _score += pins;
+            _scoreBox[_frame] = pins;
+            if (IsSpare())
+            {
+                _score += pins;
+            }
+            NextFrame();
+        }
+
+        private bool IsSpare()
+        {
+            if (_frame % 2 == 0 && _frame != 0)
+            {
+                return _scoreBox[_frame - 1] + _scoreBox[_frame - 2] == 10;
+            }
+            return false;
+        }
+
+        public void NextFrame()
+        {
+            _frame++;
         }
 
         public int GetScore()
