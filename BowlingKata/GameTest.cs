@@ -6,7 +6,7 @@ namespace BowlingKata
     {
         private int _score;
         private int _frame;
-        private readonly int[] _scoreBox = new int[20];
+        private readonly int[] _scoreBox = new int[22];
 
         public void Roll(int pins)
         {
@@ -21,6 +21,7 @@ namespace BowlingKata
             {
                 _score += SpareBonus();
             }
+
             NextFrame(pins);
         }
 
@@ -56,7 +57,7 @@ namespace BowlingKata
 
         public void NextFrame(int pins)
         {
-            if (pins == 10)
+            if (pins == 10 && _frame != 20)
             {
                 _frame += 2;
             }
@@ -116,6 +117,13 @@ namespace BowlingKata
             ProcessRolling(16, 0);
 
             Assert.AreEqual(26, _game.GetScore());
+        }
+
+        [Test]
+        public void TestAllPerfectGame()
+        {
+            ProcessRolling(12, 10);
+            Assert.AreEqual(300, _game.GetScore());
         }
 
         private void ProcessRolling(int rollCount, int pins)
