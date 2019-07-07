@@ -36,5 +36,15 @@ namespace BowlingKata
             }
             Assert.AreEqual(0, _game.GetScore());
         }
+
+        [Test]
+        public void TestAllOnes()
+        {
+            for (var i = 0; i < 20; i++)
+            {
+                _game.Roll(1);
+            }
+            Assert.AreEqual(20, _game.GetScore());
+        }
     }
 }
