@@ -12,25 +12,48 @@ namespace BowlingKata
         {
             _score += pins;
             _scoreBox[_frame] = pins;
-            if (IsSpare())
+
+            if (IsStrike())
+            {
+                _score += _scoreBox[_frame - 1] + pins;
+            }
+            else if (IsSpare())
             {
                 _score += pins;
             }
-            NextFrame();
+            NextFrame(pins);
+        }
+
+        private bool IsStrike()
+        {
+            if (_frame % 2 == 1 && _frame != 1)
+            {
+                return _scoreBox[_frame - 2] == 10 || _scoreBox[_frame - 3] == 10;
+            }
+
+            return false;
         }
 
         private bool IsSpare()
         {
-            if (_frame % 2 == 0 && _frame != 0)
+            if ((_frame % 2 == 0 && _frame != 0) &&
+                (_scoreBox[_frame - 2] != 0 && _scoreBox[_frame - 1] != 0))
             {
                 return _scoreBox[_frame - 1] + _scoreBox[_frame - 2] == 10;
             }
             return false;
         }
 
-        public void NextFrame()
+        public void NextFrame(int pins)
         {
-            _frame++;
+            if (pins == 10)
+            {
+                _frame += 2;
+            }
+            else
+            {
+                _frame++;
+            }
         }
 
         public int GetScore()
