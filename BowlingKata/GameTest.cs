@@ -41,6 +41,17 @@ namespace BowlingKata
             Assert.AreEqual(20, _game.GetScore());
         }
 
+        [Test]
+        public void TestOneSpare()
+        {
+            _game.Roll(3);
+            _game.Roll(7);
+            _game.Roll(3);
+            ProcessRolling(17, 0);
+
+            Assert.AreEqual(16, _game.GetScore());
+        }
+
         private void ProcessRolling(int rollCount, int pins)
         {
             for (var i = 0; i < rollCount; i++)
