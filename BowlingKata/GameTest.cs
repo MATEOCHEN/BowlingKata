@@ -63,6 +63,13 @@ namespace BowlingKata
             Assert.AreEqual(150, _game.GetScore());
         }
 
+        [Test]
+        public void TestAllFours()
+        {
+            ProcessRolling(20, 4);
+            Assert.AreEqual(80, _game.GetScore());
+        }
+
         private void ProcessRolling(int rollCount, int pins)
         {
             for (var i = 0; i < rollCount; i++)
