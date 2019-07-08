@@ -8,9 +8,6 @@ namespace BowlingKata
 
         public void Roll(int pins)
         {
-            if (_frame == 18)
-            {
-            }
             _score += pins;
             _scoreBox[_frame] = pins;
 
@@ -28,10 +25,10 @@ namespace BowlingKata
 
         private int SpareBonus()
         {
-            int bonus = _scoreBox[_frame];
-            if (_frame > 18)
+            var bonus = 0;
+            if (IsHavingBonus())
             {
-                bonus = 0;
+                bonus = _scoreBox[_frame];
             }
 
             return bonus;
@@ -39,7 +36,7 @@ namespace BowlingKata
 
         private int StrikeBonus()
         {
-            if ((_scoreBox[_frame - 1] == 0 || _scoreBox[_frame] == 0) && _frame <= 18)
+            if ((_scoreBox[_frame - 1] == 0 || _scoreBox[_frame] == 0) && IsHavingBonus())
             {
                 return 20;
             }
@@ -49,6 +46,11 @@ namespace BowlingKata
                 return _scoreBox[_frame];
             }
             return _scoreBox[_frame - 1] + _scoreBox[_frame];
+        }
+
+        private bool IsHavingBonus()
+        {
+            return _frame <= 18;
         }
 
         private bool IsFinal()
@@ -68,12 +70,21 @@ namespace BowlingKata
 
         private bool IsSpare()
         {
-            if ((_frame % 2 == 0 && _frame != 0) &&
-                (_scoreBox[_frame - 2] != 0 && _scoreBox[_frame - 1] != 0))
+            if (IsEvenFrame() && IsRealSpare())
             {
                 return _scoreBox[_frame - 1] + _scoreBox[_frame - 2] == 10;
             }
             return false;
+        }
+
+        private bool IsRealSpare()
+        {
+            return (_scoreBox[_frame - 2] != 0 && _scoreBox[_frame - 1] != 0);
+        }
+
+        private bool IsEvenFrame()
+        {
+            return _frame % 2 == 0 && _frame != 0;
         }
 
         public void NextFrame(int pins)
