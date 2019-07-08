@@ -5,14 +5,9 @@ namespace BowlingKata
         private int _score;
         private int _frame;
         private readonly int[] _scoreBox = new int[21];
-        private int count = 1;
 
         public void Roll(int pins)
         {
-            if (count == 12)
-            {
-                _frame += 0;
-            }
             _score += pins;
             _scoreBox[_frame] = pins;
 
@@ -82,8 +77,6 @@ namespace BowlingKata
             {
                 _frame++;
             }
-
-            count++;
         }
 
         public int GetScore()
