@@ -8,6 +8,9 @@ namespace BowlingKata
 
         public void Roll(int pins)
         {
+            if (_frame == 18)
+            {
+            }
             _score += pins;
             _scoreBox[_frame] = pins;
 
@@ -25,7 +28,13 @@ namespace BowlingKata
 
         private int SpareBonus()
         {
-            return _scoreBox[_frame];
+            int bonus = _scoreBox[_frame];
+            if (_frame > 18)
+            {
+                bonus = 0;
+            }
+
+            return bonus;
         }
 
         private int StrikeBonus()
